@@ -430,7 +430,7 @@ function App() {
             <SectionIntro
               label="Experience"
               title="Production work, not just portfolio demos"
-              description="Your current role is shown as the strongest trust signal. It makes the portfolio feel grounded in real team work."
+              description="Currently working as a Frontend Developer, contributing to real products with scalable UI systems, API integrations, and team collaboration."
             />
 
             <div className="timeline-card">
@@ -466,8 +466,8 @@ function App() {
         >
           <SectionIntro
             label="Projects"
-            title="Work framed the way recruiters like to review it"
-            description="Each project is presented with context, frontend contribution, and stack so the portfolio reads clearly in a quick scan."
+            title="Projects built and presented for real-world evaluation"
+            description="Each project highlights problem context, frontend contributions, and tech stack, enabling fast and clear assessment."
           />
 
           <div className="mt-10 space-y-6">
