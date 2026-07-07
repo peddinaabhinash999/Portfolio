@@ -3,6 +3,7 @@ import {
   ArrowRight,
   Bot,
   BriefcaseBusiness,
+  CalendarDays,
   Code2,
   Download,
   ExternalLink,
@@ -20,8 +21,17 @@ import {
   Zap,
 } from "lucide-react"
 
+import { Reveal } from "@/components/reveal"
 import { useTheme } from "@/components/theme-provider"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 
 const profile = {
   name: "Peddina Abhinash",
@@ -41,7 +51,7 @@ const profile = {
 }
 
 const stats = [
-  { label: "Experience", value: "1+ Years" },
+  { label: "Experience", value: "1.5 Years" },
   { label: "Core Stack", value: "React + TS" },
   { label: "API Work", value: "REST + GraphQL" },
   { label: "Product Areas", value: "Healthtech + AI" },
@@ -65,17 +75,32 @@ const strengths = [
   },
 ]
 
-const experience = {
-  company: "Citimedia Global Solutions",
-  role: "Frontend Developer",
-  period: "May 2025 - Present",
-  bullets: [
-    "Develop responsive UI screens with React.js and TypeScript.",
-    "Build reusable components and improve frontend structure for faster iteration.",
-    "Integrate REST APIs and GraphQL APIs for product workflows.",
-    "Collaborate with backend developers, QA engineers, and designers in Agile delivery.",
-  ],
-}
+const experience = [
+  {
+    company: "Citimedia Global Solutions",
+    role: "Frontend Developer",
+    period: "May 2025 - Present",
+    tag: "Full-time",
+    bullets: [
+      "Improved UI responsiveness by 30% by optimizing React.js and TypeScript rendering workflows across internal applications.",
+      "Engineered 15+ reusable UI components with Tailwind CSS, Material UI, and Shadcn UI, reducing frontend development time by 20%.",
+      "Integrated 8+ REST and GraphQL APIs across 2 internal products, improving frontend data consistency by 40%.",
+      "Improved deployment consistency and scalability using Docker, Google Cloud Run, and CI/CD workflows.",
+      "Partnered with designers and QA teams in Agile sprints to deliver accessible, WCAG-friendly, production-ready features.",
+    ],
+  },
+  {
+    company: "Citimedia Global Solutions",
+    role: "Frontend Developer Intern",
+    period: "Nov 2024 - Apr 2025",
+    tag: "Internship",
+    bullets: [
+      "Built responsive frontend interfaces with React.js, TypeScript, and Tailwind CSS focused on clean UX.",
+      "Created 8+ reusable UI components and integrated REST APIs to improve consistency and stability across pages.",
+      "Participated in debugging, UI testing, and Agile sprint discussions alongside the product team.",
+    ],
+  },
+]
 
 const projects = [
   {
@@ -102,30 +127,65 @@ const projects = [
     ],
     stack: ["React.js", "TypeScript", "Tailwind CSS", "AI-assisted workflow"],
   },
+  {
+    name: "Interactive Learning Activities",
+    domain: "EdTech Experiences",
+    summary:
+      "Built interactive assessment workflows and learning games with smooth cross-browser and touch support.",
+    points: [
+      "Developed reusable learning activity structures with progress tracking.",
+      "Implemented drag-and-drop and touch interactions for mobile and desktop.",
+      "Optimized UI behavior for speed, engagement, and cross-browser compatibility.",
+    ],
+    stack: ["React.js", "JavaScript", "Tailwind CSS", "Responsive UI"],
+  },
 ]
 
 const skillGroups = [
   {
     title: "Frontend",
-    items: ["React.js", "TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3"],
+    items: [
+      "React.js",
+      "Next.js (basics)",
+      "TypeScript",
+      "JavaScript (ES6+)",
+      "HTML5",
+      "CSS3",
+      "jQuery",
+    ],
   },
   {
     title: "UI Libraries",
-    items: ["Tailwind CSS", "Material UI", "Shadcn UI", "Responsive Design"],
+    items: [
+      "Tailwind CSS",
+      "Material UI",
+      "Shadcn UI",
+      "Responsive Design",
+      "WCAG Accessibility",
+    ],
   },
   {
-    title: "Integration",
-    items: ["REST APIs", "GraphQL", "FastAPI", "React Hooks"],
+    title: "APIs & State",
+    items: [
+      "REST APIs",
+      "GraphQL (Apollo)",
+      "Axios",
+      "Fetch API",
+      "React Hooks",
+      "Redux",
+    ],
   },
   {
-    title: "Tools",
+    title: "Tools & Deployment",
     items: [
       "Git",
       "GitHub",
-      "VS Code",
-      "Postman",
-      "Cursor AI",
-      "GitHub Copilot",
+      "Docker",
+      "Google Cloud Run",
+      "Vite",
+      "Webpack",
+      "GitHub Actions",
+      "CI/CD",
     ],
   },
 ]
@@ -134,12 +194,12 @@ const education = [
   {
     degree: "MCA",
     place: "BVC College of Engineering",
-    meta: "CGPA: 7.5",
+    meta: "2022 - 2024 · Web Technologies, Data Structures, DBMS",
   },
   {
     degree: "B.Sc. Computers",
     place: "SK Degree College",
-    meta: "Undergraduate degree",
+    meta: "2019 - 2022 · Undergraduate degree",
   },
 ]
 
@@ -153,7 +213,7 @@ function SectionIntro({
   description: string
 }) {
   return (
-    <div className="max-w-2xl">
+    <Reveal className="max-w-2xl" from="up">
       <p className="section-label">{label}</p>
       <h2 className="mt-4 text-3xl font-[family:var(--font-display)] font-semibold tracking-tight text-balance sm:text-4xl">
         {title}
@@ -161,7 +221,7 @@ function SectionIntro({
       <p className="mt-4 text-base leading-7 text-muted-foreground sm:text-lg">
         {description}
       </p>
-    </div>
+    </Reveal>
   )
 }
 
@@ -178,36 +238,47 @@ function App() {
 
   return (
     <div className="min-h-svh">
-      <header className="sticky top-0 z-30 border-b border-border/80 bg-background/92 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-6 lg:px-8">
-          <a href="#top" className="min-w-0">
-            <p className="text-sm font-semibold tracking-[0.26em] text-muted-foreground uppercase">
-              Peddina Abhinash
-            </p>
-            <p className="text-sm text-foreground/80">Frontend Developer</p>
-          </a>
+      <header className="sticky top-3 z-40 px-3 pt-3 sm:top-4 sm:px-6 sm:pt-4 lg:px-8">
+        <div className="nav-pill mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-full py-2.5 pr-2.5 pl-5 sm:pl-6">
+          <div className="flex items-center gap-6 lg:gap-9">
+            <a href="#top" className="flex min-w-0 items-center gap-2.5">
+              <span
+                className="size-2.5 shrink-0 rounded-full bg-primary"
+                aria-hidden="true"
+              />
+              <span className="flex flex-col leading-tight">
+                <span className="text-sm font-semibold tracking-[0.2em] text-foreground uppercase">
+                  Peddina Abhinash
+                </span>
+                <span className="hidden text-xs text-muted-foreground sm:block">
+                  Frontend Developer
+                </span>
+              </span>
+            </a>
 
-          <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
-            <a href="#experience" className="hover:text-foreground">
-              Experience
-            </a>
-            <a href="#projects" className="hover:text-foreground">
-              Projects
-            </a>
-            <a href="#skills" className="hover:text-foreground">
-              Skills
-            </a>
-            <a href="#contact" className="hover:text-foreground">
-              Contact
-            </a>
-          </nav>
+            <nav className="hidden items-center gap-7 text-sm md:flex">
+              <a href="#experience" className="nav-link">
+                Experience
+              </a>
+              <a href="#projects" className="nav-link">
+                Projects
+              </a>
+              <a href="#skills" className="nav-link">
+                Skills
+              </a>
+              <a href="#contact" className="nav-link">
+                Contact
+              </a>
+            </nav>
+          </div>
 
           <div className="flex items-center gap-2">
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
               className="rounded-full"
               onClick={toggleTheme}
+              aria-label="Toggle theme"
             >
               {isDark ? (
                 <SunMedium className="size-4" aria-hidden="true" />
@@ -215,7 +286,11 @@ function App() {
                 <MoonStar className="size-4" aria-hidden="true" />
               )}
             </Button>
-            <Button asChild size="sm" className="rounded-full px-4">
+            <Button
+              asChild
+              size="sm"
+              className="button-lift rounded-full px-5"
+            >
               <a href={`mailto:${profile.email}`}>Contact</a>
             </Button>
           </div>
@@ -225,11 +300,14 @@ function App() {
       <main id="top">
         <section className="border-b border-border/70">
           <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:px-6 sm:py-16 lg:grid-cols-[1.2fr_0.8fr] lg:px-8 lg:py-20">
-            <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/6 px-4 py-2 text-sm font-medium text-primary">
-                <Sparkles className="size-4" aria-hidden="true" />
+            <Reveal className="space-y-8" from="left">
+              <Badge
+                variant="outline"
+                className="h-auto gap-2 border-primary/20 bg-primary/8 px-4 py-2 text-sm font-medium text-primary"
+              >
+                <Sparkles className="size-4 float-soft" aria-hidden="true" />
                 Modern frontend portfolio
-              </div>
+              </Badge>
 
               <div className="space-y-5">
                 <p className="text-sm font-semibold tracking-[0.28em] text-muted-foreground uppercase">
@@ -315,20 +393,25 @@ function App() {
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2">
-                {stats.map((item) => (
-                  <div key={item.label} className="stat-card">
+                {stats.map((item, index) => (
+                  <Reveal
+                    key={item.label}
+                    className="stat-card"
+                    delay={index * 90}
+                    from="up"
+                  >
                     <p className="text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase">
                       {item.label}
                     </p>
                     <p className="mt-3 text-xl font-semibold text-foreground">
                       {item.value}
                     </p>
-                  </div>
+                  </Reveal>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
-            <aside className="profile-shell">
+            <Reveal as="aside" className="profile-shell" from="right">
               <div className="profile-photo image-hover">
                 {!imageFailed ? (
                   <img
@@ -394,7 +477,7 @@ function App() {
                   </a>
                 </div>
               </div>
-            </aside>
+            </Reveal>
           </div>
         </section>
 
@@ -406,18 +489,20 @@ function App() {
           />
 
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
-            {strengths.map(({ title, text, icon: Icon }) => (
-              <article key={title} className="feature-card">
-                <div className="feature-icon">
-                  <Icon className="size-5" aria-hidden="true" />
-                </div>
-                <h3 className="mt-6 text-xl font-semibold text-foreground">
-                  {title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                  {text}
-                </p>
-              </article>
+            {strengths.map(({ title, text, icon: Icon }, index) => (
+              <Reveal key={title} delay={index * 110} from="up">
+                <Card className="feature-card h-full gap-0 rounded-[1.75rem] p-6 ring-0">
+                  <div className="feature-icon">
+                    <Icon className="size-5" aria-hidden="true" />
+                  </div>
+                  <h3 className="mt-6 text-xl font-semibold text-foreground">
+                    {title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                    {text}
+                  </p>
+                </Card>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -426,36 +511,70 @@ function App() {
           id="experience"
           className="border-y border-border/70 bg-secondary/40"
         >
-          <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8 lg:py-18">
+          <div className="mx-auto max-w-6xl px-5 py-14 sm:px-6 lg:px-8 lg:py-18">
             <SectionIntro
               label="Experience"
               title="Production work, not just portfolio demos"
-              description="Currently working as a Frontend Developer, contributing to real products with scalable UI systems, API integrations, and team collaboration."
+              description="1.5 years contributing to real products — scalable UI systems, REST and GraphQL integrations, and team collaboration in Agile delivery."
             />
 
-            <div className="timeline-card">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <p className="section-label">{experience.company}</p>
-                  <h3 className="mt-3 text-3xl font-[family:var(--font-display)] font-semibold tracking-tight">
-                    {experience.role}
-                  </h3>
-                </div>
-                <span className="rounded-full border border-border/80 px-4 py-2 text-sm text-muted-foreground">
-                  {experience.period}
-                </span>
-              </div>
+            <div className="mt-10 space-y-6">
+              {experience.map((role, index) => (
+                <Reveal
+                  key={role.role}
+                  className="timeline-card"
+                  delay={index * 120}
+                  from="up"
+                >
+                  <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
+                    <div className="lg:w-72 lg:shrink-0">
+                      <div className="flex items-center gap-3">
+                        <span className="feature-icon">
+                          <BriefcaseBusiness
+                            className="size-5"
+                            aria-hidden="true"
+                          />
+                        </span>
+                        <Badge
+                          variant="outline"
+                          className="border-primary/25 bg-primary/8 text-primary"
+                        >
+                          {role.tag}
+                        </Badge>
+                      </div>
+                      <h3 className="mt-5 text-2xl font-[family:var(--font-display)] font-semibold tracking-tight sm:text-3xl">
+                        {role.role}
+                      </h3>
+                      <p className="mt-2 text-sm font-medium text-foreground/80">
+                        {role.company}
+                      </p>
+                      <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+                        <CalendarDays
+                          className="size-4 text-primary"
+                          aria-hidden="true"
+                        />
+                        {role.period}
+                      </p>
+                    </div>
 
-              <div className="mt-8 space-y-4">
-                {experience.bullets.map((item) => (
-                  <div key={item} className="timeline-point">
-                    <span className="mt-2 size-2 rounded-full bg-primary" />
-                    <p className="text-sm leading-7 text-foreground/88">
-                      {item}
-                    </p>
+                    <Separator
+                      orientation="vertical"
+                      className="hidden bg-border/70 lg:block lg:h-auto lg:self-stretch"
+                    />
+
+                    <div className="grid flex-1 gap-3 sm:grid-cols-2">
+                      {role.bullets.map((item) => (
+                        <div key={item} className="timeline-point">
+                          <span className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
+                          <p className="text-sm leading-7 text-foreground/88">
+                            {item}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>
@@ -472,7 +591,13 @@ function App() {
 
           <div className="mt-10 space-y-6">
             {projects.map((project, index) => (
-              <article key={project.name} className="project-card">
+              <Reveal
+                as="article"
+                key={project.name}
+                className="project-card"
+                delay={index * 90}
+                from="up"
+              >
                 <div className="project-index">0{index + 1}</div>
 
                 <div className="grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-start">
@@ -503,14 +628,18 @@ function App() {
 
                     <div className="mt-6 flex flex-wrap gap-2">
                       {project.stack.map((item) => (
-                        <span key={item} className="stack-tag">
+                        <Badge
+                          key={item}
+                          variant="secondary"
+                          className="rounded-full px-3 py-1 text-[11px] font-medium tracking-wide text-secondary-foreground/80 uppercase"
+                        >
                           {item}
-                        </span>
+                        </Badge>
                       ))}
                     </div>
                   </div>
                 </div>
-              </article>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -527,19 +656,29 @@ function App() {
             />
 
             <div className="mt-10 grid gap-5 md:grid-cols-2">
-              {skillGroups.map((group) => (
-                <article key={group.title} className="skill-card">
+              {skillGroups.map((group, index) => (
+                <Reveal
+                  as="article"
+                  key={group.title}
+                  className="skill-card"
+                  delay={(index % 2) * 110}
+                  from="up"
+                >
                   <h3 className="text-2xl font-[family:var(--font-display)] font-semibold">
                     {group.title}
                   </h3>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {group.items.map((item) => (
-                      <span key={item} className="stack-tag">
+                      <Badge
+                        key={item}
+                        variant="secondary"
+                        className="rounded-full px-3 py-1 text-[11px] font-medium tracking-wide text-secondary-foreground/80 uppercase"
+                      >
                         {item}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
-                </article>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -547,57 +686,72 @@ function App() {
 
         <section className="mx-auto max-w-6xl px-5 py-14 sm:px-6 lg:px-8 lg:py-18">
           <div className="grid gap-6 lg:grid-cols-[1fr_0.8fr]">
-            <article className="detail-card">
-              <div className="flex items-center gap-3">
-                <div className="feature-icon">
-                  <GraduationCap className="size-5" aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="section-label">Education</p>
-                  <h2 className="mt-2 text-3xl font-[family:var(--font-display)] font-semibold tracking-tight">
-                    Academic background
-                  </h2>
-                </div>
-              </div>
-
-              <div className="mt-8 grid gap-4">
-                {education.map((item) => (
-                  <div key={item.degree} className="mini-card">
-                    <h3 className="text-lg font-semibold text-foreground">
-                      {item.degree}
-                    </h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {item.place}
-                    </p>
-                    <p className="mt-3 text-sm text-foreground/78">
-                      {item.meta}
-                    </p>
+            <Reveal from="left">
+              <Card className="detail-card h-full gap-0 p-6 ring-0 sm:p-8">
+                <div className="flex items-center gap-3">
+                  <div className="feature-icon">
+                    <GraduationCap className="size-5" aria-hidden="true" />
                   </div>
-                ))}
-              </div>
-            </article>
+                  <div>
+                    <p className="section-label">Education</p>
+                    <h2 className="mt-2 text-3xl font-[family:var(--font-display)] font-semibold tracking-tight">
+                      Academic background
+                    </h2>
+                  </div>
+                </div>
 
-            <article className="detail-card">
-              <p className="section-label">Certification</p>
-              <h2 className="mt-3 text-3xl font-[family:var(--font-display)] font-semibold tracking-tight">
-                Continued learning
-              </h2>
+                <Separator className="mt-6 bg-border/70" />
 
-              <div className="mini-card mt-8">
-                <h3 className="text-lg font-semibold text-foreground">
-                  Python for Beginners
-                </h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Code Tantra
-                </p>
-              </div>
+                <div className="mt-6 grid gap-4">
+                  {education.map((item) => (
+                    <Card
+                      key={item.degree}
+                      className="mini-card gap-0 rounded-3xl bg-background/70 p-0 ring-0"
+                    >
+                      <CardHeader className="p-0">
+                        <CardTitle className="text-lg font-semibold text-foreground">
+                          {item.degree}
+                        </CardTitle>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          {item.place}
+                        </p>
+                      </CardHeader>
+                      <CardContent className="p-0">
+                        <p className="mt-3 text-sm text-foreground/78">
+                          {item.meta}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </Card>
+            </Reveal>
 
-              <div className="callout-card mt-6">
-                This portfolio is structured for today&apos;s hiring flow:
-                strong headline, real experience, project context, clear skills,
-                and visible contact actions.
-              </div>
-            </article>
+            <Reveal delay={120} from="right">
+              <Card className="detail-card h-full gap-0 p-6 ring-0 sm:p-8">
+                <p className="section-label">Certification</p>
+                <h2 className="mt-3 text-3xl font-[family:var(--font-display)] font-semibold tracking-tight">
+                  Continued learning
+                </h2>
+
+                <Card className="mini-card mt-8 gap-0 rounded-3xl bg-background/70 p-0 ring-0">
+                  <CardHeader className="p-0">
+                    <CardTitle className="text-lg font-semibold text-foreground">
+                      Python for Beginners
+                    </CardTitle>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Code Tantra
+                    </p>
+                  </CardHeader>
+                </Card>
+
+                <div className="callout-card mt-6">
+                  This portfolio is structured for today&apos;s hiring flow:
+                  strong headline, real experience, project context, clear
+                  skills, and visible contact actions.
+                </div>
+              </Card>
+            </Reveal>
           </div>
         </section>
 
@@ -605,7 +759,7 @@ function App() {
           id="contact"
           className="mx-auto max-w-6xl px-5 pb-16 sm:px-6 lg:px-8 lg:pb-20"
         >
-          <div className="contact-band">
+          <Reveal className="contact-band" from="up">
             <div>
               <p className="section-label">Contact</p>
               <h2 className="mt-4 max-w-3xl text-4xl font-[family:var(--font-display)] font-semibold tracking-tight text-balance sm:text-5xl">
@@ -663,7 +817,7 @@ function App() {
                 </a>
               </Button>
             </div>
-          </div>
+          </Reveal>
         </section>
       </main>
     </div>
