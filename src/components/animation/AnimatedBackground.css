@@ -1,0 +1,11 @@
+/* Transparent particle canvas that sits behind all page content. Letting the
+   body background and aurora glow show through keeps the light theme intact. */
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  display: block;
+}

@@ -1,4 +1,4 @@
-import { startTransition, useState } from "react"
+import { useEffect, useState } from "react"
 import {
   ArrowRight,
   Bot,
@@ -13,15 +13,14 @@ import {
   Linkedin,
   Mail,
   MapPin,
-  MoonStar,
   Phone,
   Sparkles,
-  SunMedium,
   Workflow,
   Zap,
 } from "lucide-react"
 
 import { Reveal } from "@/components/reveal"
+import { Tilt } from "@/components/tilt"
 import { useTheme } from "@/components/theme-provider"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -32,6 +31,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import AnimatedBackground from "./components/animation/AnimatedBackground"
 
 const profile = {
   name: "Peddina Abhinash",
@@ -226,18 +226,17 @@ function SectionIntro({
 }
 
 function App() {
-  const { theme, setTheme } = useTheme()
+  const { setTheme } = useTheme()
   const [imageFailed, setImageFailed] = useState(false)
-  const isDark = theme === "dark"
 
-  const toggleTheme = () => {
-    startTransition(() => {
-      setTheme(isDark ? "light" : "dark")
-    })
-  }
+  // This portfolio is dark-only — lock the theme regardless of stored value.
+  useEffect(() => {
+    setTheme("dark")
+  }, [setTheme])
 
   return (
     <div className="min-h-svh">
+            <AnimatedBackground />
       <header className="sticky top-3 z-40 px-3 pt-3 sm:top-4 sm:px-6 sm:pt-4 lg:px-8">
         <div className="nav-pill mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-full py-2.5 pr-2.5 pl-5 sm:pl-6">
           <div className="flex items-center gap-6 lg:gap-9">
@@ -273,19 +272,6 @@ function App() {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="rounded-full"
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-            >
-              {isDark ? (
-                <SunMedium className="size-4" aria-hidden="true" />
-              ) : (
-                <MoonStar className="size-4" aria-hidden="true" />
-              )}
-            </Button>
             <Button
               asChild
               size="sm"
@@ -394,18 +380,17 @@ function App() {
 
               <div className="grid gap-3 sm:grid-cols-2">
                 {stats.map((item, index) => (
-                  <Reveal
-                    key={item.label}
-                    className="stat-card"
-                    delay={index * 90}
-                    from="up"
-                  >
-                    <p className="text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase">
-                      {item.label}
-                    </p>
-                    <p className="mt-3 text-xl font-semibold text-foreground">
-                      {item.value}
-                    </p>
+                  <Reveal key={item.label} delay={index * 90} from="up">
+                    <Tilt className="h-full">
+                      <div className="stat-card h-full">
+                        <p className="text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase">
+                          {item.label}
+                        </p>
+                        <p className="mt-3 text-xl font-semibold text-foreground">
+                          {item.value}
+                        </p>
+                      </div>
+                    </Tilt>
                   </Reveal>
                 ))}
               </div>
@@ -491,17 +476,19 @@ function App() {
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
             {strengths.map(({ title, text, icon: Icon }, index) => (
               <Reveal key={title} delay={index * 110} from="up">
-                <Card className="feature-card h-full gap-0 rounded-[1.75rem] p-6 ring-0">
-                  <div className="feature-icon">
-                    <Icon className="size-5" aria-hidden="true" />
-                  </div>
-                  <h3 className="mt-6 text-xl font-semibold text-foreground">
-                    {title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                    {text}
-                  </p>
-                </Card>
+                <Tilt className="h-full">
+                  <Card className="feature-card h-full gap-0 rounded-[1.75rem] p-6 ring-0">
+                    <div className="feature-icon">
+                      <Icon className="size-5" aria-hidden="true" />
+                    </div>
+                    <h3 className="mt-6 text-xl font-semibold text-foreground">
+                      {title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                      {text}
+                    </p>
+                  </Card>
+                </Tilt>
               </Reveal>
             ))}
           </div>
@@ -591,16 +578,12 @@ function App() {
 
           <div className="mt-10 space-y-6">
             {projects.map((project, index) => (
-              <Reveal
-                as="article"
-                key={project.name}
-                className="project-card"
-                delay={index * 90}
-                from="up"
-              >
-                <div className="project-index">0{index + 1}</div>
+              <Reveal key={project.name} delay={index * 90} from="up">
+                <Tilt max={4}>
+                  <article className="project-card">
+                    <div className="project-index">0{index + 1}</div>
 
-                <div className="grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-start">
+                    <div className="grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-start">
                   <div>
                     <p className="section-label">{project.domain}</p>
                     <h3 className="mt-3 text-3xl font-[family:var(--font-display)] font-semibold tracking-tight sm:text-4xl">
@@ -638,7 +621,9 @@ function App() {
                       ))}
                     </div>
                   </div>
-                </div>
+                    </div>
+                  </article>
+                </Tilt>
               </Reveal>
             ))}
           </div>
@@ -657,27 +642,25 @@ function App() {
 
             <div className="mt-10 grid gap-5 md:grid-cols-2">
               {skillGroups.map((group, index) => (
-                <Reveal
-                  as="article"
-                  key={group.title}
-                  className="skill-card"
-                  delay={(index % 2) * 110}
-                  from="up"
-                >
-                  <h3 className="text-2xl font-[family:var(--font-display)] font-semibold">
-                    {group.title}
-                  </h3>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <Badge
-                        key={item}
-                        variant="secondary"
-                        className="rounded-full px-3 py-1 text-[11px] font-medium tracking-wide text-secondary-foreground/80 uppercase"
-                      >
-                        {item}
-                      </Badge>
-                    ))}
-                  </div>
+                <Reveal key={group.title} delay={(index % 2) * 110} from="up">
+                  <Tilt max={6} className="h-full">
+                    <article className="skill-card h-full">
+                      <h3 className="text-2xl font-[family:var(--font-display)] font-semibold">
+                        {group.title}
+                      </h3>
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {group.items.map((item) => (
+                          <Badge
+                            key={item}
+                            variant="secondary"
+                            className="rounded-full px-3 py-1 text-[11px] font-medium tracking-wide text-secondary-foreground/80 uppercase"
+                          >
+                            {item}
+                          </Badge>
+                        ))}
+                      </div>
+                    </article>
+                  </Tilt>
                 </Reveal>
               ))}
             </div>

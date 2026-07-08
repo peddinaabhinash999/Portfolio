@@ -43,37 +43,37 @@
 }
 
 .dark {
-  --background: oklch(0.19 0.018 62);
-  --foreground: oklch(0.96 0.008 80);
-  --card: oklch(0.235 0.02 62);
-  --card-foreground: oklch(0.96 0.008 80);
-  --popover: oklch(0.22 0.02 62);
-  --popover-foreground: oklch(0.96 0.008 80);
-  --primary: oklch(0.76 0.14 66);
-  --primary-foreground: oklch(0.2 0.03 60);
-  --secondary: oklch(0.27 0.02 62);
-  --secondary-foreground: oklch(0.96 0.008 80);
-  --muted: oklch(0.26 0.018 62);
-  --muted-foreground: oklch(0.78 0.02 72);
-  --accent: oklch(0.34 0.04 66);
-  --accent-foreground: oklch(0.96 0.008 80);
+  --background: oklch(0.04 0 0);
+  --foreground: oklch(0.96 0.006 250);
+  --card: oklch(0.13 0.012 264 / 78%);
+  --card-foreground: oklch(0.96 0.006 250);
+  --popover: oklch(0.11 0.012 264);
+  --popover-foreground: oklch(0.96 0.006 250);
+  --primary: oklch(0.72 0.19 52);
+  --primary-foreground: oklch(0.16 0.02 60);
+  --secondary: oklch(0.25 0.02 264);
+  --secondary-foreground: oklch(0.96 0.006 250);
+  --muted: oklch(0.23 0.018 264);
+  --muted-foreground: oklch(0.74 0.02 258);
+  --accent: oklch(0.32 0.05 300);
+  --accent-foreground: oklch(0.96 0.006 250);
   --destructive: oklch(0.7 0.18 23.1);
-  --border: oklch(0.42 0.03 66 / 80%);
-  --input: oklch(0.38 0.028 66 / 76%);
-  --ring: oklch(0.74 0.14 66);
-  --chart-1: oklch(0.78 0.15 66);
-  --chart-2: oklch(0.72 0.16 30);
-  --chart-3: oklch(0.84 0.13 90);
-  --chart-4: oklch(0.7 0.14 300);
-  --chart-5: oklch(0.74 0.15 46);
-  --sidebar: oklch(0.22 0.02 62);
-  --sidebar-foreground: oklch(0.96 0.008 80);
-  --sidebar-primary: oklch(0.76 0.14 66);
-  --sidebar-primary-foreground: oklch(0.2 0.03 60);
-  --sidebar-accent: oklch(0.34 0.04 66);
-  --sidebar-accent-foreground: oklch(0.96 0.008 80);
-  --sidebar-border: oklch(0.42 0.03 66 / 80%);
-  --sidebar-ring: oklch(0.74 0.14 66);
+  --border: oklch(0.5 0.03 264 / 42%);
+  --input: oklch(0.42 0.028 264 / 60%);
+  --ring: oklch(0.72 0.19 52);
+  --chart-1: oklch(0.72 0.19 52);
+  --chart-2: oklch(0.66 0.26 350);
+  --chart-3: oklch(0.8 0.15 202);
+  --chart-4: oklch(0.85 0.15 92);
+  --chart-5: oklch(0.78 0.15 165);
+  --sidebar: oklch(0.18 0.02 264);
+  --sidebar-foreground: oklch(0.96 0.006 250);
+  --sidebar-primary: oklch(0.72 0.19 52);
+  --sidebar-primary-foreground: oklch(0.16 0.02 60);
+  --sidebar-accent: oklch(0.32 0.05 300);
+  --sidebar-accent-foreground: oklch(0.96 0.006 250);
+  --sidebar-border: oklch(0.5 0.03 264 / 42%);
+  --sidebar-ring: oklch(0.72 0.19 52);
 }
 
 @theme inline {
@@ -210,6 +210,39 @@
     box-shadow:
       0 20px 45px -30px color-mix(in oklch, var(--foreground) 55%, transparent),
       inset 0 1px 0 color-mix(in oklch, white 45%, transparent);
+  }
+
+  /* Interactive 3D tilt: JS sets --rx/--ry from the cursor position. */
+  .tilt-3d {
+    transform: perspective(1000px) rotateX(var(--rx, 0deg))
+      rotateY(var(--ry, 0deg));
+    transform-style: preserve-3d;
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .tilt-3d > * {
+    height: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tilt-3d {
+      transform: none !important;
+    }
+  }
+
+  /* Frosted glass so the glowing spheres shimmer through cards on dark. */
+  .dark .stat-card,
+  .dark .feature-card,
+  .dark .timeline-card,
+  .dark .project-card,
+  .dark .skill-card,
+  .dark .detail-card,
+  .dark .contact-band,
+  .dark .mini-card,
+  .dark .profile-shell {
+    backdrop-filter: blur(14px) saturate(1.25);
+    -webkit-backdrop-filter: blur(14px) saturate(1.25);
   }
 
   .meta-pill {
@@ -352,30 +385,53 @@
   .profile-shell {
     @apply rounded-[2rem] border border-border/80 bg-card p-5 sm:p-6;
     box-shadow:
-      0 24px 50px -36px color-mix(in oklch, var(--foreground) 22%, transparent),
-      inset 0 1px 0 color-mix(in oklch, white 55%, transparent);
+      0 30px 70px -40px color-mix(in oklch, black 80%, transparent),
+      inset 0 1px 0 color-mix(in oklch, white 10%, transparent);
   }
 
   .profile-photo {
-    @apply overflow-hidden rounded-[1.75rem] border border-border/80;
+    @apply relative overflow-hidden rounded-[1.75rem];
     aspect-ratio: 4 / 4.35;
+    border: 1px solid color-mix(in oklch, var(--border) 90%, transparent);
+    background: color-mix(in oklch, var(--card) 70%, black);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklch, white 6%, transparent),
+      0 24px 55px -30px color-mix(in oklch, var(--primary) 55%, transparent);
+  }
+
+  /* Vignette that blends the photo's edges into the dark card. */
+  .profile-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
     background:
       linear-gradient(
-        145deg,
-        color-mix(in oklch, var(--chart-1) 16%, transparent) 0%,
-        color-mix(in oklch, var(--chart-2) 12%, transparent) 100%
+        180deg,
+        transparent 55%,
+        color-mix(in oklch, var(--card) 78%, transparent) 100%
       ),
-      color-mix(in oklch, var(--background) 92%, white 8%);
+      radial-gradient(
+        130% 100% at 50% 0%,
+        transparent 60%,
+        color-mix(in oklch, var(--background) 70%, transparent) 100%
+      );
+  }
+
+  .profile-photo img {
+    @apply h-full w-full object-cover;
+    object-position: center 18%;
   }
 
   .image-hover img,
   .image-hover .profile-fallback {
-    transition: transform 280ms ease;
+    transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .image-hover:hover img,
   .image-hover:hover .profile-fallback {
-    transform: scale(1.035);
+    transform: scale(1.04);
   }
 
   .profile-fallback {
