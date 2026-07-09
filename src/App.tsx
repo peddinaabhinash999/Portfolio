@@ -114,6 +114,8 @@ const projects = [
       "Applied reusable UI patterns to support future product screens.",
     ],
     stack: ["React.js", "TypeScript", "REST APIs", "GraphQL"],
+    demo: "https://brainfx.com/",
+    repo: "",
   },
   {
     name: "RecruiterAI",
@@ -126,6 +128,8 @@ const projects = [
       "Focused on user confidence and smooth interview flow transitions.",
     ],
     stack: ["React.js", "TypeScript", "Tailwind CSS", "AI-assisted workflow"],
+    demo: "https://recruiterai.nugget.ai/",
+    repo: "",
   },
   {
     name: "Interactive Learning Activities",
@@ -138,6 +142,8 @@ const projects = [
       "Optimized UI behavior for speed, engagement, and cross-browser compatibility.",
     ],
     stack: ["React.js", "JavaScript", "Tailwind CSS", "Responsive UI"],
+    demo: "",
+    repo: "",
   },
 ]
 
@@ -625,6 +631,50 @@ function App() {
                         </Badge>
                       ))}
                     </div>
+
+                    <div className="mt-6 flex flex-wrap items-center gap-3">
+                      {project.demo ? (
+                        <Button
+                          asChild
+                          size="sm"
+                          className="button-lift rounded-full px-4"
+                        >
+                          <a
+                            href={project.demo}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Live Demo
+                            <ExternalLink
+                              className="size-4"
+                              aria-hidden="true"
+                            />
+                          </a>
+                        </Button>
+                      ) : null}
+                      {project.repo ? (
+                        <Button
+                          asChild
+                          variant="outline"
+                          size="sm"
+                          className="button-lift rounded-full px-4"
+                        >
+                          <a
+                            href={project.repo}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Code
+                            <Github className="size-4" aria-hidden="true" />
+                          </a>
+                        </Button>
+                      ) : null}
+                      {!project.demo && !project.repo ? (
+                        <span className="text-xs text-muted-foreground">
+                          Company product · source not public
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
                     </div>
                   </article>
@@ -808,6 +858,41 @@ function App() {
           </Reveal>
         </section>
       </main>
+
+      <footer className="border-t border-border/70">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 sm:flex-row sm:px-6 lg:px-8">
+          <p className="text-sm text-muted-foreground">
+            © 2026 {profile.name}. Built with React, TypeScript &amp; Vite.
+          </p>
+          <div className="flex items-center gap-4">
+            <a
+              className="text-muted-foreground transition-colors hover:text-foreground"
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub"
+            >
+              <Github className="size-5" aria-hidden="true" />
+            </a>
+            <a
+              className="text-muted-foreground transition-colors hover:text-foreground"
+              href={profile.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="size-5" aria-hidden="true" />
+            </a>
+            <a
+              className="text-muted-foreground transition-colors hover:text-foreground"
+              href={`mailto:${profile.email}`}
+              aria-label="Email"
+            >
+              <Mail className="size-5" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
