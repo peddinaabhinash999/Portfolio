@@ -146,7 +146,7 @@ const skillGroups = [
     title: "Frontend",
     items: [
       "React.js",
-      "Next.js (basics)",
+      "Next.js",
       "TypeScript",
       "JavaScript (ES6+)",
       "HTML5",
@@ -162,6 +162,8 @@ const skillGroups = [
       "Shadcn UI",
       "Responsive Design",
       "WCAG Accessibility",
+      "D3.js Charts",
+      "Bar Charts",
     ],
   },
   {
@@ -173,6 +175,8 @@ const skillGroups = [
       "Fetch API",
       "React Hooks",
       "Redux",
+      "API Integration",
+      "JWT Authentication",
     ],
   },
   {
@@ -182,6 +186,7 @@ const skillGroups = [
       "GitHub",
       "Docker",
       "Google Cloud Run",
+      "Vercel",
       "Vite",
       "Webpack",
       "GitHub Actions",
